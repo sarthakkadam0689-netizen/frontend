@@ -278,7 +278,7 @@
         });
 
         // ── Form submit ────────────────────────────────────────────────────────
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
             hideAlert();
 
@@ -286,15 +286,19 @@
             const email    = emailEl.value.trim();
             const password = passEl.value;
 
-            // Use auth.js handleSignup
-            const result = window.handleSignup(name, email, password);
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+
+            // Use auth.js handleSignup (async now)
+            const result = await window.handleSignup(name, email, password);
 
             if (result.success) {
                 showAlert('Account created! Redirecting to login…', 'success');
-                btn.disabled = true;
                 setTimeout(() => window.location.replace('login.html'), 1200);
             } else {
                 showAlert(result.message);
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
             }
         });
     </script>

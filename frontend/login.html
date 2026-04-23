@@ -247,28 +247,31 @@
 
         function hideAlert() { alertBox.className = 'alert'; }
 
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
             hideAlert();
 
             const email    = emailEl.value.trim();
             const password = passEl.value;
 
-            // Basic validation
             if (!email || !password) {
                 showAlert('Please fill in all fields.');
                 return;
             }
 
-            // Use auth.js handleLogin
-            const result = window.handleLogin(email, password);
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+
+            // Use auth.js handleLogin (async now)
+            const result = await window.handleLogin(email, password);
 
             if (result.success) {
                 showAlert('Login successful! Redirecting…', 'success');
-                btn.disabled = true;
                 setTimeout(() => window.location.replace('dashboard.html'), 800);
             } else {
                 showAlert(result.message);
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
                 passEl.value = '';
                 passEl.focus();
             }
