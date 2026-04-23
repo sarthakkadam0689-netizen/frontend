@@ -1,0 +1,12 @@
+# Backend — never commit secrets or installed packages
+backend/node_modules/
+backend/.env
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+*.log
+
+# Scratch / dev scripts (not part of deployment)
+frontend/scratch/
+scratch/

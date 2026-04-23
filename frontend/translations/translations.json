@@ -1,0 +1,135 @@
+{
+  "ui": {
+    "nav_home": {
+      "en": "Home",
+      "hi": "होम",
+      "mr": "मुख्य पृष्ठ"
+    },
+    "ui_recommended": {
+      "en": "⭐ Recommended",
+      "hi": "⭐ अनुशंसित",
+      "mr": "⭐ शिफारस केलेले"
+    },
+    "ui_view_details": {
+      "en": "View Details",
+      "hi": "विवरण देखें",
+      "mr": "तपशील पहा"
+    },
+    "ui_apply_now": {
+      "en": "Apply Now",
+      "hi": "अभी आवेदन करें",
+      "mr": "आता अर्ज करा"
+    },
+    "ui_no_results": {
+      "en": "No schemes found matching your criteria.",
+      "hi": "आपके मानदंडों से मेल खाने वाली कोई योजना नहीं मिली।",
+      "mr": "तुमच्या निकषांशी जुळणारी कोणतीही योजना आढळली नाही."
+    },
+    "ui_schemes": {
+      "en": "schemes",
+      "hi": "योजनाएं",
+      "mr": "योजना"
+    },
+    "ui_ministry": {
+      "en": "Ministry",
+      "hi": "मंत्रालय",
+      "mr": "मंत्रालय"
+    },
+    "cat_agriculture": { "en": "Agriculture", "hi": "कृषि", "mr": "कृषि" },
+    "cat_education": { "en": "Education", "hi": "शिक्षा", "mr": "शिक्षण" },
+    "cat_healthcare": { "en": "Healthcare", "hi": "स्वास्थ्य सेवा", "mr": "आरोग्य सेवा" },
+    "cat_finance": { "en": "Finance", "hi": "वित्त", "mr": "वित्त" },
+    "cat_housing": { "en": "Housing", "hi": "आवास", "mr": "गृहनिर्माण" },
+    "cat_employment": { "en": "Employment", "hi": "रोजगार", "mr": "रोजगार" },
+    "cat_women": { "en": "Women & Child", "hi": "महिला एवं बाल", "mr": "महिला आणि बाल" },
+    "cat_social": { "en": "Social Welfare", "hi": "समाज कल्याण", "mr": "समाज कल्याण" },
+    "cat_transport": { "en": "Transport", "hi": "परिवहन", "mr": "परिवहन" },
+    "cat_digital": { "en": "Digital Services", "hi": "डिजिटल सेवाएं", "mr": "डिजिटल सेवा" },
+    "ui_no_schemes_found": {
+      "en": "No schemes found",
+      "hi": "कोई योजना नहीं मिली",
+      "mr": "कोणतीही योजना आढळली नाही"
+    },
+    "ui_try_different": {
+      "en": "Try a different search term or category.",
+      "hi": "एक अलग खोज शब्द या श्रेणी आज़माएं।",
+      "mr": "वेगळा शोध शब्द किंवा श्रेणी वापरून पहा."
+    },
+    "ui_show_all": {
+      "en": "Show All Schemes",
+      "hi": "सभी योजनाएं दिखाएं",
+      "mr": "सर्व योजना दाखवा"
+    },
+    "ui_eligibility": {
+      "en": "Eligibility Criteria",
+      "hi": "पात्रता मापदंड",
+      "mr": "पात्रता निकष"
+    },
+    "ui_documents": {
+      "en": "Required Documents",
+      "hi": "आवश्यक दस्तावेज़",
+      "mr": "आवश्यक कागदपत्रे"
+    },
+    "ui_how_to_apply": {
+      "en": "How to Apply",
+      "hi": "आवेदन कैसे करें",
+      "mr": "अर्ज कसा करावा"
+    },
+    "ui_apply_portal": {
+      "en": "Apply on Official Portal",
+      "hi": "आधिकारिक पोर्टल पर आवेदन करें",
+      "mr": "अधिकृत पोर्टलवर अर्ज करा"
+    },
+    "ui_visit_portal": {
+      "en": "Visit the official portal to apply.",
+      "hi": "आवेदन करने के लिए आधिकारिक पोर्टल पर जाएं।",
+      "mr": "अर्ज करण्यासाठी अधिकृत पोर्टलला भेट द्या."
+    },
+    "ui_id_error": {
+        "en": "No scheme ID specified.",
+        "hi": "कोई योजना आईडी निर्दिष्ट नहीं है।",
+        "mr": "योजना आयडी निर्दिष्ट नाही."
+    },
+    "ui_not_found": {
+        "en": "Scheme not found.",
+        "hi": "योजना नहीं मिली।",
+        "mr": "योजना आढळली नाही."
+    }
+  },
+  "pm-kisan": {
+    "name": {
+      "en": "PM Kisan Samman Nidhi",
+      "hi": "पीएम किसान सम्मान निधि",
+      "mr": "पीएम किसान सन्मान निधी"
+    },
+    "description": {
+      "en": "Income support of ₹6000/year",
+      "hi": "₹6000 वार्षिक सहायता",
+      "mr": "₹6000 वार्षिक मदत"
+    }
+  },
+  "pm-jay": {
+    "name": {
+      "en": "Ayushman Bharat (PM-JAY)",
+      "hi": "आयुष्मान भारत (PM-JAY)",
+      "mr": "आयुष्मान भारत (PM-JAY)"
+    },
+    "description": {
+      "en": "Provides health cover of ₹5 lakh per family per year.",
+      "hi": "प्रति परिवार प्रति वर्ष ₹5 लाख का स्वास्थ्य कवर प्रदान करता है।",
+      "mr": "प्रति कुटुंब दरवर्षी ₹5 लाख आरोग्य विमा प्रदान करते."
+    }
+  },
+  "pm-awas": {
+    "name": {
+      "en": "PM Awas Yojana (Urban)",
+      "hi": "पीएम आवास योजना (शहरी)",
+      "mr": "पीएम आवास योजना (शहरी)"
+    },
+    "description": {
+      "en": "Provides affordable housing for the urban poor.",
+      "hi": "शहरी गरीबों के लिए किफायती आवास प्रदान करता है।",
+      "mr": "शहरी गरिबांसाठी परवडणारी घरे प्रदान करते."
+    }
+  }
+}

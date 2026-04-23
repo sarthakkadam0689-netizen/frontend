@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | SchemeChecker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-container {
+            max-width: 440px;
+            margin: 4rem auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-hover);
+        }
+        .auth-header { text-align: center; margin-bottom: 2rem; }
+        .auth-header h2 { margin: 0 0 0.5rem; color: var(--primary-blue); font-size: 1.8rem; }
+        .auth-header p { color: var(--text-muted); margin: 0; }
+
+        .auth-form { display: flex; flex-direction: column; gap: 1.25rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group label { font-weight: 600; font-size: 0.9rem; color: var(--text-main); }
+        .form-group input {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus { border-color: var(--primary-blue); }
+
+        .auth-switch { text-align: center; margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); }
+        .auth-switch a { color: var(--primary-blue); font-weight: 600; text-decoration: none; cursor: pointer; }
+        .auth-switch a:hover { text-decoration: underline; }
+
+        .error-msg {
+            background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5;
+            padding: 0.75rem; border-radius: 8px; font-size: 0.85rem;
+            display: none; margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="umang-header" style="justify-content:center;">
+        <h1 class="logo" onclick="window.location.href='index.html'">🏛️ SchemeChecker</h1>
+    </header>
+
+    <main class="container">
+        <div class="auth-container">
+            <div id="auth-error" class="error-msg"></div>
+
+            <!-- Login View -->
+            <div id="login-view">
+                <div class="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Enter your credentials to access your saved schemes</p>
+                </div>
+                <form id="login-form" class="auth-form">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="login-email" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="padding:0.85rem; font-size:1rem;">
+                        Sign In
+                    </button>
+                </form>
+                <div class="auth-switch">
+                    Don't have an account? <a href="signup.html">Sign Up</a>
+                </div>
+            </div>
+
+            <!-- Signup View -->
+            <div id="signup-view" style="display:none;">
+                <div class="auth-header">
+                    <h2>Create Account</h2>
+                    <p>Join 10,000+ citizens using SchemeChecker</p>
+                </div>
+                <form id="signup-form" class="auth-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="signup-name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="signup-email" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signup-password" placeholder="Min 6 characters" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="padding:0.85rem; font-size:1rem;">
+                        Create Account
+                    </button>
+                </form>
+                <div class="auth-switch">
+                    Already have an account? <a onclick="toggleAuth('login')">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleAuth(view) {
+            document.getElementById('login-view').style.display = view === 'login' ? 'block' : 'none';
+            document.getElementById('signup-view').style.display = view === 'signup' ? 'block' : 'none';
+            document.title = (view === 'login' ? 'Login' : 'Signup') + ' | SchemeChecker';
+            document.getElementById('auth-error').style.display = 'none';
+        }
+    </script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

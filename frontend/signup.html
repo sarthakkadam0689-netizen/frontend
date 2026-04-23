@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | SchemeChecker</title>
+    <meta name="description" content="Create a free SchemeChecker account to save and track government schemes.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 50%, #fdf4ff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            text-decoration: none;
+        }
+        .brand-icon { font-size: 1.8rem; }
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 2.5rem 2.25rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .card-header { text-align: center; margin-bottom: 2rem; }
+        .card-header h1 { font-size: 1.75rem; font-weight: 800; color: #0f172a; margin-bottom: 0.4rem; }
+        .card-header p  { color: #64748b; font-size: 0.95rem; }
+
+        .form-group { margin-bottom: 1.1rem; }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.45rem;
+        }
+
+        .input-wrap { position: relative; }
+        .input-wrap i {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+        .input-wrap input {
+            width: 100%;
+            padding: 0.75rem 0.9rem 0.75rem 2.4rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            color: #0f172a;
+            background: #f8fafc;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+        .input-wrap input:focus {
+            border-color: #16a34a;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+
+        /* Password strength bar */
+        .strength-bar {
+            height: 4px;
+            border-radius: 4px;
+            background: #e2e8f0;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.3s, background 0.3s;
+        }
+        .strength-label { font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem; }
+
+        .alert {
+            display: none;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.1rem;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .alert.error   { display: flex; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+        .alert.success { display: flex; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+
+        .btn {
+            width: 100%;
+            padding: 0.85rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #16a34a, #0d9488);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.35);
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(22, 163, 74, 0.45); }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        .card-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .card-footer a { color: #1d4ed8; font-weight: 600; text-decoration: none; }
+        .card-footer a:hover { text-decoration: underline; }
+
+        /* Checklist */
+        .req-list {
+            list-style: none;
+            font-size: 0.78rem;
+            color: #94a3b8;
+            margin-top: 0.35rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem 1rem;
+        }
+        .req-list li { display: flex; align-items: center; gap: 0.3rem; transition: color 0.2s; }
+        .req-list li.ok { color: #16a34a; }
+        .req-list li i { font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="brand">
+        <span class="brand-icon">🏛️</span>
+        <span class="brand-name">SchemeChecker</span>
+    </a>
+
+    <div class="card">
+        <div class="card-header">
+            <h1>Create account</h1>
+            <p>Join 10,000+ citizens using SchemeChecker</p>
+        </div>
+
+        <div id="alert-box" class="alert" role="alert">
+            <i class="fas fa-circle-exclamation"></i>
+            <span id="alert-text"></span>
+        </div>
+
+        <form id="signup-form" novalidate>
+            <!-- Name -->
+            <div class="form-group">
+                <label for="signup-name">Full Name</label>
+                <div class="input-wrap">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="signup-name" placeholder="John Doe" autocomplete="name" required>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="signup-email">Email Address</label>
+                <div class="input-wrap">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signup-email" placeholder="name@example.com" autocomplete="email" required>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <div class="input-wrap">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signup-password" placeholder="Min. 6 characters" autocomplete="new-password" required>
+                </div>
+                <!-- Strength indicator -->
+                <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+                <ul class="req-list" id="req-list">
+                    <li id="req-len"><i class="fas fa-circle"></i> 6+ chars</li>
+                    <li id="req-num"><i class="fas fa-circle"></i> Number</li>
+                    <li id="req-upper"><i class="fas fa-circle"></i> Uppercase</li>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="signup-btn">
+                <i class="fas fa-user-plus"></i>
+                Create Account
+            </button>
+        </form>
+
+        <div class="card-footer">
+            Already have an account? <a href="login.html">Sign in</a>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Redirect to home if already logged in
+        if (window.isLoggedIn && window.isLoggedIn()) {
+            window.location.replace('index.html');
+        }
+
+        const form      = document.getElementById('signup-form');
+        const nameEl    = document.getElementById('signup-name');
+        const emailEl   = document.getElementById('signup-email');
+        const passEl    = document.getElementById('signup-password');
+        const btn       = document.getElementById('signup-btn');
+        const alertBox  = document.getElementById('alert-box');
+        const alertText = document.getElementById('alert-text');
+
+        // ── Alert helpers ──────────────────────────────────────────────────────
+        function showAlert(msg, type = 'error') {
+            alertBox.className = 'alert ' + type;
+            alertText.textContent = msg;
+            alertBox.querySelector('i').className =
+                type === 'error' ? 'fas fa-circle-exclamation' : 'fas fa-circle-check';
+        }
+        function hideAlert() { alertBox.className = 'alert'; }
+
+        // ── Password strength indicator ────────────────────────────────────────
+        const fill    = document.getElementById('strength-fill');
+        const reqLen  = document.getElementById('req-len');
+        const reqNum  = document.getElementById('req-num');
+        const reqUpper= document.getElementById('req-upper');
+
+        passEl.addEventListener('input', function () {
+            const val = passEl.value;
+            const hasLen   = val.length >= 6;
+            const hasNum   = /\d/.test(val);
+            const hasUpper = /[A-Z]/.test(val);
+
+            reqLen.className   = hasLen   ? 'ok' : '';
+            reqNum.className   = hasNum   ? 'ok' : '';
+            reqUpper.className = hasUpper ? 'ok' : '';
+
+            const score = [hasLen, hasNum, hasUpper].filter(Boolean).length;
+            const colors  = ['#ef4444', '#f59e0b', '#22c55e'];
+            const widths  = ['33%', '66%', '100%'];
+            fill.style.width      = score > 0 ? widths[score - 1] : '0%';
+            fill.style.background = score > 0 ? colors[score - 1] : 'transparent';
+        });
+
+        // ── Form submit ────────────────────────────────────────────────────────
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            hideAlert();
+
+            const name     = nameEl.value.trim();
+            const email    = emailEl.value.trim();
+            const password = passEl.value;
+
+            // Use auth.js handleSignup
+            const result = window.handleSignup(name, email, password);
+
+            if (result.success) {
+                showAlert('Account created! Redirecting to login…', 'success');
+                btn.disabled = true;
+                setTimeout(() => window.location.replace('login.html'), 1200);
+            } else {
+                showAlert(result.message);
+            }
+        });
+    </script>
+</body>
+</html>

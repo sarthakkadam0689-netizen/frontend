@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | SchemeChecker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, #1d4ed8, #4f46e5);
+            border-radius: 20px;
+            padding: 3rem;
+            color: white;
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.2);
+            border: 4px solid rgba(255,255,255,0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 800;
+            backdrop-filter: blur(10px);
+        }
+
+        .welcome-text h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .welcome-text p { font-size: 1.1rem; opacity: 0.9; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-info h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+        .stat-info .value { font-size: 1.5rem; font-weight: 800; color: var(--text-main); }
+
+        .quick-actions { margin-bottom: 3rem; }
+        .action-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-action:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: #f0f7ff; }
+        .btn-action i { font-size: 1.2rem; }
+
+        @media (max-width: 768px) {
+            .welcome-card { flex-direction: column; text-align: center; padding: 2rem; }
+            .user-avatar { width: 80px; height: 80px; font-size: 2.2rem; }
+            .welcome-text h1 { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="umang-header">
+        <a href="index.html" class="logo" style="text-decoration:none;">🏛️ SchemeChecker</a>
+        <div class="header-controls">
+            <!-- Auth chip injected here -->
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Welcome Section -->
+        <div class="welcome-card">
+            <div class="user-avatar" id="dash-avatar">U</div>
+            <div class="welcome-text">
+                <h1 id="dash-welcome">Welcome Back!</h1>
+                <p id="dash-email">user@example.com</p>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#e0f2fe; color:#0ea5e9;">
+                    <i class="fas fa-bookmark"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Saved Schemes</h3>
+                    <div class="value" id="count-saved">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#f0fdf4; color:#22c55e;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Profile Completion</h3>
+                    <div class="value">85%</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#fef2f2; color:#ef4444;">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Alerts</h3>
+                    <div class="value">2 New</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:1.5rem;">Quick Actions</h2>
+            <div class="action-buttons">
+                <a href="schemes.html" class="btn-action">
+                    <i class="fas fa-search"></i>
+                    <span>Browse Schemes</span>
+                </a>
+                <a href="saved.html" class="btn-action">
+                    <i class="fas fa-list-ul"></i>
+                    <span>View Saved List</span>
+                </a>
+                <a href="index.html#eligibility-form" class="btn-action">
+                    <i class="fas fa-user-check"></i>
+                    <span>Check Eligibility</span>
+                </a>
+                <a href="#" class="btn-action" onclick="window.logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Page Guard: Ensure user is logged in
+        window.requireAuth();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = window.getCurrentUser();
+            if (user) {
+                document.getElementById('dash-welcome').textContent = `Welcome, ${user.name}!`;
+                document.getElementById('dash-email').textContent = user.email;
+                document.getElementById('dash-avatar').textContent = user.name.charAt(0).toUpperCase();
+                
+                // Set saved count
+                const saved = window.getSavedSchemes();
+                document.getElementById('count-saved').textContent = saved.length;
+            }
+        });
+    </script>
+</body>
+</html>

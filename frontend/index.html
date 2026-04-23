@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchemeChecker | Government Schemes Portal</title>
+    <meta name="description" content="Discover and apply for Indian Government schemes across Agriculture, Healthcare, Education, Finance and more in one unified portal.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .hero { text-align: center; padding: 5rem 2rem 4rem; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; color: var(--primary-blue); margin: 0 0 1rem; line-height: 1.15; }
+        .hero p  { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.7; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .stats-bar { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin: 0 0 3.5rem; }
+        .stat-pill { background: white; border: 1px solid var(--border-color); border-radius: 999px; padding: 0.5rem 1.5rem; font-size: 0.9rem; font-weight: 600; color: var(--text-main); box-shadow: var(--shadow-soft); }
+        .stat-pill span { color: var(--primary-blue); }
+
+        .section-title { font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin: 0 0 1.5rem; }
+        .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 3.5rem; }
+        .cat-card {
+            background: white; border: 1px solid var(--border-color); border-radius: 12px;
+            padding: 1.5rem 1rem; text-align: center; cursor: pointer;
+            box-shadow: var(--shadow-soft); transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none; display: block; color: inherit;
+        }
+        .cat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+        .cat-card i { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+        .cat-card h3 { margin: 0; font-size: 0.95rem; font-weight: 600; }
+        .cat-card small { color: var(--text-muted); font-size: 0.8rem; }
+
+        .featured-title { font-size: 1.5rem; font-weight: 700; margin: 0 0 1.5rem; }
+        .featured-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <header class="umang-header">
+        <h1 class="logo">🏛️ SchemeChecker</h1>
+        <div class="header-controls">
+            <a href="saved.html" class="nav-link" style="color:var(--primary-blue); font-weight:600; text-decoration:none; margin-right:1rem;">
+                <i class="fas fa-bookmark" style="margin-right:0.35rem;"></i> Saved
+            </a>
+            <select id="language-switcher" class="lang-select" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="hi">हिंदी</option>
+                <option value="mr">मराठी</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Find Government Schemes<br>That Benefit <em style="color:#16a34a; font-style:normal;">You</em></h1>
+            <p>One unified portal for 150+ Indian government schemes across Agriculture, Healthcare, Education, Finance, Housing, Employment, and more.</p>
+            <div class="hero-buttons">
+                <button onclick="goToSchemes()" class="btn-primary" style="font-size:1.05rem; padding:0.85rem 3rem;">
+                    <i class="fas fa-search" style="margin-right:0.5rem;"></i> Browse All Schemes
+                </button>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-pill"><span>35+</span> Schemes</div>
+            <div class="stat-pill"><span>10</span> Categories</div>
+            <div class="stat-pill"><span>3</span> Languages</div>
+            <div class="stat-pill"><span>100%</span> Free to Use</div>
+        </div>
+
+        <!-- Category Grid -->
+        <h2 class="section-title">Browse by Category</h2>
+        <div class="category-grid">
+            <div class="cat-card category-card" data-category="agriculture">
+                <i class="fas fa-tractor" style="color:#10b981;"></i>
+                <h3>Agriculture</h3><small id="count-agriculture">Loading...</small>
+            </div>
+            <div class="cat-card category-card" data-category="education">
+                <i class="fas fa-graduation-cap" style="color:#3b82f6;"></i>
+                <h3>Education</h3><small id="count-education">Loading...</small>
+            </div>
+            <div class="cat-card category-card" data-category="healthcare">
+                <i class="fas fa-heartbeat" style="color:#ef4444;"></i>
+                <h3>Healthcare</h3><small id="count-healthcare">Loading...</small>
+            </div>
+            <div class="cat-card category-card" data-category="finance">
+                <i class="fas fa-rupee-sign" style="color:#f59e0b;"></i>
+                <h3>Finance</h3><small id="count-finance" data-i18n="ui_schemes">Loading...</small>
+            </div>
+            <div class="cat-card category-card" data-category="housing">
+                <i class="fas fa-home" style="color:#8b5cf6;"></i>
+                <h3>Housing</h3><small id="count-housing" data-i18n="ui_schemes">Loading...</small>
+            </div>
+            <div class="cat-card category-card" data-category="employment">
+                <i class="fas fa-briefcase" style="color:#0284c7;"></i>
+                <h3>Employment</h3><small id="count-employment">Loading...</small>
+            </div>
+            <div class="cat-card category-card" data-category="women">
+                <i class="fas fa-female" style="color:#ec4899;"></i>
+                <h3 data-i18n="cat_women">Women &amp; Child</h3><small id="count-women" data-i18n="ui_schemes">Loading...</small>
+            </div>
+            <div class="cat-card category-card" data-category="social">
+                <i class="fas fa-hands-helping" style="color:#64748b;"></i>
+                <h3>Social Welfare</h3><small id="count-social">Loading...</small>
+            </div>
+            <div class="cat-card category-card" data-category="transport">
+                <i class="fas fa-road" style="color:#f97316;"></i>
+                <h3>Transport</h3><small id="count-transport">Loading...</small>
+            </div>
+            <div class="cat-card category-card" data-category="digital">
+                <i class="fas fa-laptop" style="color:#06b6d4;"></i>
+                <h3 data-i18n="cat_digital">Digital Services</h3><small id="count-digital">Loading...</small>
+            </div>
+        </div>
+
+        <!-- Check Your Eligibility Form -->
+        <section style="background:white; border:1px solid var(--border-color); border-radius:16px; padding:2.5rem; margin-bottom:3.5rem; box-shadow:var(--shadow-soft);">
+            <h2 style="margin:0 0 0.4rem; font-size:1.5rem; color:var(--primary-blue);">Check Your Eligibility</h2>
+            <p style="margin:0 0 2rem; color:var(--text-muted);">Fill out your details to find personalized government schemes.</p>
+
+            <form id="eligibility-form" onsubmit="return false;">
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem;">
+                    <div>
+                        <label style="font-size:0.85rem; font-weight:600; color:var(--text-main); display:block; margin-bottom:0.4rem;">Age</label>
+                        <input id="elig-age" type="number" min="1" max="120" placeholder="E.g. 30"
+                            style="width:100%; padding:0.65rem 1rem; border:1px solid var(--border-color); border-radius:8px; font-size:0.95rem; outline:none; transition:border-color 0.2s;"
+                            onfocus="this.style.borderColor='var(--primary-blue)'" onblur="this.style.borderColor='var(--border-color)'">
+                    </div>
+                    <div>
+                        <label style="font-size:0.85rem; font-weight:600; color:var(--text-main); display:block; margin-bottom:0.4rem;">Gender</label>
+                        <select id="elig-gender" style="width:100%; padding:0.65rem 1rem; border:1px solid var(--border-color); border-radius:8px; font-size:0.95rem; outline:none; background:white; cursor:pointer;">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:0.85rem; font-weight:600; color:var(--text-main); display:block; margin-bottom:0.4rem;">Annual Income (₹)</label>
+                        <input id="elig-income" type="number" min="0" placeholder="E.g. 250000"
+                            style="width:100%; padding:0.65rem 1rem; border:1px solid var(--border-color); border-radius:8px; font-size:0.95rem; outline:none; transition:border-color 0.2s;"
+                            onfocus="this.style.borderColor='var(--primary-blue)'" onblur="this.style.borderColor='var(--border-color)'">
+                    </div>
+                    <div>
+                        <label style="font-size:0.85rem; font-weight:600; color:var(--text-main); display:block; margin-bottom:0.4rem;">State</label>
+                        <select id="elig-state" style="width:100%; padding:0.65rem 1rem; border:1px solid var(--border-color); border-radius:8px; font-size:0.95rem; outline:none; background:white; cursor:pointer;">
+                            <option value="">Select State</option>
+                            <option>Andhra Pradesh</option><option>Bihar</option><option>Delhi</option>
+                            <option>Gujarat</option><option>Karnataka</option><option>Kerala</option>
+                            <option>Madhya Pradesh</option><option>Maharashtra</option><option>Punjab</option>
+                            <option>Rajasthan</option><option>Tamil Nadu</option><option>Uttar Pradesh</option>
+                            <option>West Bengal</option><option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:0.85rem; font-weight:600; color:var(--text-main); display:block; margin-bottom:0.4rem;">Category</label>
+                        <select id="elig-category" style="width:100%; padding:0.65rem 1rem; border:1px solid var(--border-color); border-radius:8px; font-size:0.95rem; outline:none; background:white; cursor:pointer;">
+                            <option value="">Select Category</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="education">Education</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="finance">Finance</option>
+                            <option value="housing">Housing</option>
+                            <option value="employment">Employment</option>
+                            <option value="women">Women &amp; Child</option>
+                            <option value="social">Social Welfare</option>
+                            <option value="transport">Transport</option>
+                            <option value="digital">Digital</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:0.85rem; font-weight:600; color:var(--text-main); display:block; margin-bottom:0.4rem;">Occupation</label>
+                        <select id="elig-occupation" style="width:100%; padding:0.65rem 1rem; border:1px solid var(--border-color); border-radius:8px; font-size:0.95rem; outline:none; background:white; cursor:pointer;">
+                            <option value="">Select Occupation</option>
+                            <option>Farmer</option>
+                            <option>Student</option>
+                            <option>Self-Employed</option>
+                            <option>Government Employee</option>
+                            <option>Private Employee</option>
+                            <option>Unemployed</option>
+                            <option>Senior Citizen</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" onclick="window.runEligibilityCheck()" class="btn-primary"
+                    style="width:100%; margin-top:1.75rem; padding:1rem; font-size:1.05rem; border-radius:10px; letter-spacing:0.02em;">
+                    <i class="fas fa-search" style="margin-right:0.5rem;"></i> Find Matching Schemes
+                </button>
+            </form>
+
+            <!-- Result preview under the form -->
+            <div id="elig-results" style="margin-top:1.5rem; display:none;">
+                <p id="elig-result-label" style="font-weight:600; color:var(--primary-blue); margin-bottom:1rem;"></p>
+                <div id="elig-result-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1rem;"></div>
+                <div style="text-align:center; margin-top:1.25rem;">
+                    <button id="elig-view-all-btn" class="btn-outline" onclick="">View All Matching Schemes →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Now -->
+        <h2 class="section-title">🔥 Trending Now</h2>
+        <div id="trending-strip" style="display:flex; gap:1rem; overflow-x:auto; padding-bottom:1rem; margin-bottom:3.5rem; scroll-snap-type:x mandatory;">
+            <!-- Populated by script -->
+        </div>
+
+        <!-- All Schemes Link -->
+        <div style="text-align:center; margin-top:2rem; margin-bottom:3rem;">
+            <button onclick="window.location.href='schemes.html'" class="btn-outline">View All Schemes →</button>
+        </div>
+
+    </main>
+
+    <footer style="background:var(--bg-card); border-top:1px solid var(--border-color); padding:2rem 5%; text-align:center; color:var(--text-muted); font-size:0.9rem; margin-top:2rem;">
+        <p style="margin:0;">SchemeChecker — A community portal for Indian government scheme discovery. Data sourced from official government portals.</p>
+    </footer>
+
+    <script src="js/schemesData.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/listing.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            window.renderHomeContent = function() {
+                if (!window.schemesData) return;
+                const all = Object.values(window.schemesData).flat();
+
+                // 1. TRENDING NOW
+                const trendingIds = ['pm-kisan', 'pmjay', 'pmay-u', 'mgnrega', 'mudra', 'nsp', 'pmjdy', 'ssy', 'digilocker', 'pm-fby'];
+                const trendingSchemes = trendingIds
+                    .map(id => all.find(s => s.id === id))
+                    .filter(Boolean);
+
+                const catIcons = {
+                    agriculture: '🌾', education: '🎓', healthcare: '🏥',
+                    finance: '💰', housing: '🏠', employment: '💼',
+                    women: '👩', social: '🤝',
+                    transport: '🚗', digital: '💻'
+                };
+
+                const strip = document.getElementById('trending-strip');
+                if (strip) {
+                    strip.innerHTML = trendingSchemes.map((s, i) => `
+                        <div onclick="window.location.href='scheme-details.html?id=${s.id}'"
+                            style="flex-shrink:0; width:220px; scroll-snap-align:start; background:white;
+                                   border:1px solid var(--border-color); border-radius:12px; padding:1.25rem;
+                                   cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; box-shadow:var(--shadow-soft);"
+                            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='var(--shadow-hover)'"
+                            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='var(--shadow-soft)'">
+                            <div style="font-size:2rem; margin-bottom:0.6rem;">${catIcons[s.category] || '📋'}</div>
+                            <div style="font-size:0.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.35rem;">${s.category}</div>
+                            <h3 style="margin:0 0 0.4rem; font-size:0.95rem; font-weight:700; color:var(--text-main); line-height:1.3;">${window.resolveField(s.name)}</h3>
+                            <p style="margin:0; font-size:0.82rem; color:var(--text-muted); line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${window.resolveField(s.description)}</p>
+                        </div>
+                    `).join('');
+                }
+
+                // 2. FEATURED RECOMMENDED SCHEMES
+                const grid = document.getElementById('featured-grid');
+                if (grid) {
+                    const topSchemes = all.slice(0, 6);
+                    grid.innerHTML = topSchemes.map(s => `
+                        <div class="scheme-card fade-in" style="cursor:pointer;" onclick="window.location.href='scheme-details.html?id=${s.id}'">
+                            <div class="card-header">
+                                <span class="badge">${resolveCategoryName(s.category)}</span>
+                            </div>
+                            <div class="ministry"><i class="fas fa-landmark" style="margin-right:0.35rem;opacity:0.6;"></i>${s.ministry}</div>
+                            <h3 class="scheme-title">${window.resolveField(s.name)}</h3>
+                            <p class="scheme-desc" style="margin-bottom: 0.75rem;">${window.resolveField(s.description)}</p>
+                            <div class="scheme-meta-info" style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem; background: var(--bg-main); padding: 0.75rem; border-radius: 8px;">
+                                <p style="margin: 0 0 0.4rem;"><strong><i class="fas fa-check-circle" style="color: #10b981; margin-right: 0.3rem;"></i> Eligibility:</strong> ${window.resolveField(s.eligibility)}</p>
+                                <p style="margin: 0;"><strong><i class="fas fa-file-alt" style="color: #3b82f6; margin-right: 0.3rem;"></i> Documents:</strong> ${window.resolveField(s.documents)}</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-outline" onclick="event.stopPropagation();window.location.href='scheme-details.html?id=${s.id}'">${window.t('ui', 'ui_view_details') || 'View Details'}</button>
+                                <a href="${s.applyLink}" target="_blank" rel="noopener" class="btn-apply apply" onclick="event.stopPropagation()">${window.t('ui', 'ui_apply_now') || 'Apply Now'}</a>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            };
+
+            // Wait for data
+            setTimeout(() => {
+                window.renderHomeContent();
+            }, 300);
+
+            // ─────────────────────────────────────────────────────────────────────
+            // 3. ELIGIBILITY CHECKER ENGINE
+            // ─────────────────────────────────────────────────────────────────────
+            window.runEligibilityCheck = function() {
+                const age        = parseInt(document.getElementById('elig-age').value)      || null;
+                const gender     = document.getElementById('elig-gender').value;
+                const income     = parseInt(document.getElementById('elig-income').value)   || null;
+                const category   = document.getElementById('elig-category').value;
+                const occupation = document.getElementById('elig-occupation').value;
+
+                if (!window.schemesData) return;
+                const all = Object.values(window.schemesData).flat();
+
+                // --- Scoring / matching logic ---
+                const scored = all.map(s => {
+                    let score = 0;
+
+                    // Category match → highest weight
+                    if (category && s.category === category) score += 40;
+
+                    // Occupation-based matching
+                    if (occupation === 'Farmer'  && s.category === 'agriculture')         score += 30;
+                    if (occupation === 'Student' && s.category === 'education')           score += 30;
+                    if (occupation === 'Self-Employed' && s.id === 'mudra-loan')          score += 25;
+                    if (occupation === 'Unemployed' && s.category === 'employment')       score += 25;
+                    if (occupation === 'Senior Citizen' && s.category === 'social')       score += 25;
+
+                    // Gender-based matching
+                    if (gender === 'female' && s.category === 'women') score += 20;
+
+                    // Income-based: low income programs
+                    if (income !== null && income < 250000 && s.recommended) score += 15;
+                    if (income !== null && income < 100000)                  score += 10;
+
+                    // Age-based matching
+                    if (age !== null) {
+                        if (age < 30  && s.category === 'education')           score += 10;
+                        if (age >= 60 && s.id === 'pm-vaya-social')             score += 15;
+                        if (age >= 60 && s.category === 'social')               score += 10;
+                        if (age >= 18 && age <= 50 && s.id === 'pm-jjby')      score += 10;
+                        if (age < 10  && s.id === 'sukanya-samriddhi')          score += 20; // girl child
+                    }
+
+                    // Always boost recommended schemes slightly
+                    if (s.recommended) score += 5;
+
+                    return { scheme: s, score };
+                });
+
+                // Sort descending, take top 6
+                const results = scored
+                    .filter(x => x.score > 0)
+                    .sort((a, b) => b.score - a.score)
+                    .slice(0, 6)
+                    .map(x => x.scheme);
+
+                const resultsBox  = document.getElementById('elig-results');
+                const resultLabel = document.getElementById('elig-result-label');
+                const resultGrid  = document.getElementById('elig-result-grid');
+                const viewAllBtn  = document.getElementById('elig-view-all-btn');
+
+                if (!resultsBox) return;
+                resultsBox.style.display = 'block';
+
+                if (results.length === 0) {
+                    resultLabel.textContent = 'No strong matches found. Try adjusting your filters.';
+                    resultGrid.innerHTML = '';
+                    return;
+                }
+
+                resultLabel.textContent = results.length + ' scheme' + (results.length !== 1 ? 's' : '') + ' matched your profile:';
+
+                resultGrid.innerHTML = results.map(s => `
+                    <div onclick="window.location.href='scheme-details.html?id=${s.id}'"
+                        style="background:var(--bg-main); border:1px solid var(--border-color); border-radius:10px;
+                               padding:1rem 1.25rem; cursor:pointer; transition:box-shadow 0.2s;"
+                        onmouseover="this.style.boxShadow='var(--shadow-hover)'"
+                        onmouseout="this.style.boxShadow='none'">
+                        <span class="badge" style="margin-bottom:0.5rem;">${s.category}</span>
+                        <h4 style="margin:0.4rem 0 0.25rem; font-size:0.95rem; font-weight:700;">${window.resolveField(s.name)}</h4>
+                        <p style="margin:0; font-size:0.82rem; color:var(--text-muted); line-height:1.4;">${window.resolveField(s.description)}</p>
+                    </div>
+                `).join('');
+
+                // Wire "View All" button to schemes.html?category=<selected>
+                if (viewAllBtn) {
+                    const target = category ? 'schemes.html?category=' + category : 'schemes.html';
+                    viewAllBtn.onclick = () => window.location.href = target;
+                }
+
+                // Smooth scroll to results
+                resultsBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            };
+
+            // Initialize UI
+            window.renderHomeContent();
+            updateCategoryCounts();
+        });
+    </script>
+</body>
+</html>

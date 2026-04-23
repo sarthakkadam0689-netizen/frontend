@@ -1,0 +1,15 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/login",     "dest": "/login.html"   },
+    { "src": "/signup",    "dest": "/signup.html"  },
+    { "src": "/dashboard", "dest": "/dashboard.html"},
+    { "src": "/schemes",   "dest": "/schemes.html" },
+    { "src": "/saved",     "dest": "/saved.html"   },
+    { "src": "/auth",    "dest": "/auth.html"    },
+    { "src": "/scheme-details", "dest": "/scheme-details.html" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)",    "dest": "/index.html"   }
+  ]
+}
