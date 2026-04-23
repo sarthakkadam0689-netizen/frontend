@@ -39,7 +39,7 @@
     <header class="umang-header">
         <h1 class="logo">🏛️ SchemeChecker</h1>
         <div class="header-controls">
-            <a href="saved.html" class="nav-link" style="color:var(--primary-blue); font-weight:600; text-decoration:none; margin-right:1rem;">
+            <a href="/saved" class="nav-link" style="color:var(--primary-blue); font-weight:600; text-decoration:none; margin-right:1rem;">
                 <i class="fas fa-bookmark" style="margin-right:0.35rem;"></i> Saved
             </a>
             <select id="language-switcher" class="lang-select" onchange="changeLanguage(this.value)">
@@ -210,7 +210,7 @@
 
         <!-- All Schemes Link -->
         <div style="text-align:center; margin-top:2rem; margin-bottom:3rem;">
-            <button onclick="window.location.href='schemes.html'" class="btn-outline">View All Schemes →</button>
+            <button onclick="window.location.href='/schemes'" class="btn-outline">View All Schemes →</button>
         </div>
 
     </main>
@@ -376,7 +376,7 @@
 
                 // Wire "View All" button to schemes.html?category=<selected>
                 if (viewAllBtn) {
-                    const target = category ? 'schemes.html?category=' + category : 'schemes.html';
+                    const target = category ? '/schemes?category=' + category : '/schemes';
                     viewAllBtn.onclick = () => window.location.href = target;
                 }
 
