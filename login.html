@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | SchemeChecker</title>
+    <meta name="description" content="Login to SchemeChecker to access your saved government schemes.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #ede9fe 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        /* ── Logo Bar ─────────────────────────────────────── */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            text-decoration: none;
+        }
+        .brand-icon { font-size: 1.8rem; }
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ── Card ─────────────────────────────────────────── */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 2.5rem 2.25rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .card-header { text-align: center; margin-bottom: 2rem; }
+        .card-header h1 { font-size: 1.75rem; font-weight: 800; color: #0f172a; margin-bottom: 0.4rem; }
+        .card-header p  { color: #64748b; font-size: 0.95rem; }
+
+        /* ── Form ─────────────────────────────────────────── */
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.45rem;
+        }
+
+        .input-wrap { position: relative; }
+        .input-wrap i {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+        .input-wrap input {
+            width: 100%;
+            padding: 0.75rem 0.9rem 0.75rem 2.4rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            color: #0f172a;
+            background: #f8fafc;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+        .input-wrap input:focus {
+            border-color: #1d4ed8;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+        }
+        .input-wrap input.error-input { border-color: #ef4444; background: #fff; }
+
+        /* ── Alert Box ───────────────────────────────────── */
+        .alert {
+            display: none;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .alert.error   { display: flex; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+        .alert.success { display: flex; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+
+        /* ── Button ──────────────────────────────────────── */
+        .btn {
+            width: 100%;
+            padding: 0.85rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #1d4ed8, #4f46e5);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+        }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        /* ── Footer Link ─────────────────────────────────── */
+        .card-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .card-footer a {
+            color: #1d4ed8;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .card-footer a:hover { text-decoration: underline; }
+
+        /* ── Divider ─────────────────────────────────────── */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            color: #94a3b8;
+            font-size: 0.8rem;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="brand">
+        <span class="brand-icon">🏛️</span>
+        <span class="brand-name">SchemeChecker</span>
+    </a>
+
+    <div class="card">
+        <div class="card-header">
+            <h1>Welcome back</h1>
+            <p>Sign in to access your saved schemes</p>
+        </div>
+
+        <!-- Alert Box -->
+        <div id="alert-box" class="alert" role="alert">
+            <i class="fas fa-circle-exclamation"></i>
+            <span id="alert-text"></span>
+        </div>
+
+        <form id="login-form" novalidate>
+            <div class="form-group">
+                <label for="login-email">Email Address</label>
+                <div class="input-wrap">
+                    <i class="fas fa-envelope"></i>
+                    <input
+                        type="email"
+                        id="login-email"
+                        placeholder="name@example.com"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <div class="input-wrap">
+                    <i class="fas fa-lock"></i>
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="login-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                Sign In
+            </button>
+        </form>
+
+        <div class="card-footer">
+            Don't have an account? <a href="signup.html">Create one</a>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Redirect to home if already logged in
+        if (window.isLoggedIn && window.isLoggedIn()) {
+            window.location.replace('dashboard.html');
+        }
+
+        const form   = document.getElementById('login-form');
+        const emailEl= document.getElementById('login-email');
+        const passEl = document.getElementById('login-password');
+        const btn    = document.getElementById('login-btn');
+        const alertBox = document.getElementById('alert-box');
+        const alertText= document.getElementById('alert-text');
+
+        function showAlert(msg, type = 'error') {
+            alertBox.className = 'alert ' + type;
+            alertText.textContent = msg;
+            alertBox.querySelector('i').className =
+                type === 'error' ? 'fas fa-circle-exclamation' : 'fas fa-circle-check';
+        }
+
+        function hideAlert() { alertBox.className = 'alert'; }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            hideAlert();
+
+            const email    = emailEl.value.trim();
+            const password = passEl.value;
+
+            if (!email || !password) {
+                showAlert('Please fill in all fields.');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+
+            // Use auth.js handleLogin (async now)
+            const result = await window.handleLogin(email, password);
+
+            if (result.success) {
+                showAlert('Login successful! Redirecting…', 'success');
+                setTimeout(() => window.location.replace('dashboard.html'), 800);
+            } else {
+                showAlert(result.message);
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+                passEl.value = '';
+                passEl.focus();
+            }
+        });
+    </script>
+</body>
+</html>
