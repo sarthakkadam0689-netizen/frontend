@@ -3,9 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
-// ── Connect to MongoDB ─────────────────────────────────────────────────────────
-connectDB();
-
+// ── Initialize App ─────────────────────────────────────────────────────────────
 const app = express();
 
 // ── CORS Configuration ─────────────────────────────────────────────────────────
@@ -61,7 +59,17 @@ app.use((err, req, res, next) => {
 });
 
 // ── Start Server ───────────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
-});
+const startServer = async () => {
+    try {
+        await connectDB();
+        const PORT = process.env.PORT || 5000;
+        app.listen(PORT, () => {
+            console.log(`🚀 Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+        });
+    } catch (err) {
+        console.error('❌ Server startup failed:', err.message);
+        process.exit(1);
+    }
+};
+
+startServer();
